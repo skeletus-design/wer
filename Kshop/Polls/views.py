@@ -52,25 +52,26 @@ def main(request):
             print(form.error_messages)    
 
 
-def register_view(request):
-    # if request.user.is_authenticated:
-    #     # Если пользователь уже аутентифицирован, перенаправляем его на главную страницу
-    #     return redirect('main')  # Замените 'home' на имя вашего представления или URL
+# def register_view(request):
+#     # if request.user.is_authenticated:
+#     #     # Если пользователь уже аутентифицирован, перенаправляем его на главную страницу
+#     #     return redirect('main')  # Замените 'home' на имя вашего представления или URL
 
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            # Сохраняем нового пользователя
-            print("valid2")
-            # Аутентифицируем нового пользователя и выполняем вход
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # Перенаправляем пользователя на нужную страницу
-                return redirect('main')  # Замените 'home' на имя вашего представления или URL
-    else:
-        # Если запрос не методом POST, просто отображаем пустую форму регистрации
-        form = UserCreationForm()
-    return render(request, 'Polls/register.html', {'form': form})
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             # Сохраняем нового пользователя
+#             print("valid2")
+#             # Аутентифицируем нового пользователя и выполняем вход
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password1']
+#             user = authenticate(request, username=username, password=password)
+#             if user is not None:
+#                 print("valid3")
+#                 login(request, user)
+#                 # Перенаправляем пользователя на нужную страницу
+#                 return redirect('main')  # Замените 'home' на имя вашего представления или URL
+#     else:
+#         # Если запрос не методом POST, просто отображаем пустую форму регистрации
+#         form = UserCreationForm()
+#     return render(request, 'Polls/register.html', {'form': form})

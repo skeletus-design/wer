@@ -92,7 +92,7 @@ input.modal_input:focus{
   height: 65px;
   width: 240px;
   border: none;
-  background-color: #0F4757;
+  background-color: #8d7caf !important;
   border-radius: 10px;
 }
 /* модалка авторизованного пользователя */
@@ -104,12 +104,12 @@ input.modal_input:focus{
 .email_label{
   font-size: 28px;
   font-weight: 400;
-  color: #041F27;
+  color: #8d7caf;
 }
 .email{
   font-size: 26px;
   font-weight: 400;
-  color: #041F27;
+  color: #8d7caf;
 }
 .linked_cards{
   font-size: 24px;
@@ -126,7 +126,7 @@ input.modal_input:focus{
   font-size: 16px;
   height: 67px !important;
   width: 120px;
-  background-color: #F08A48 !important;
+  background-color: #8d7caf !important;
   border: none !important;
 }
 .number{
@@ -152,7 +152,7 @@ input.modal_input:focus{
   width: 180px;
   border-radius: 10px;
   border: none;
-  background-color: #0F4757;
+  background-color: #8d7caf;
   font-size: 20px;
 }
 .modal_logout_div{
@@ -165,6 +165,6 @@ input.modal_input:focus{
   height: 65px;
   width: 240px;
   border: none;
-  background-color: #041F27;
+  background-color: #8d7caf;
   border-radius: 10px;
 }
