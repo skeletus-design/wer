@@ -3,15 +3,18 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from . import forms
+from .models import Product
+from django.views.generic import DetailView
 # from .models import Article
 
 def main(request):
+    products = Product.objects.all()
     if request.method == 'GET':
         if request.user.is_authenticated:
             # articles = Article.objects.order_by('-created_at')[:10]
-            return render(request, "Polls/main.html")       
+            return render(request, "Polls/main.html", {'products': products})       
         else:
-            return render(request, "Polls/main.html")
+            return render(request, "Polls/main.html", {'products': products})
     if request.method == 'POST':
         if 'login' in request.POST:
             form = LoginForm(request.POST)
@@ -49,7 +52,25 @@ def main(request):
                     login(request, user)
                     # Перенаправляем пользователя на нужную страницу
                     return redirect('main')  # Замените 'home' на имя вашего представления или URL
-            print(form.error_messages)    
+            print(form.error_messages) 
+               
+def product_description(request):
+    return render(request, "Polls/product_description.html")
+
+class PostDetailView(DetailView):
+    model = Product
+    context_object_name = 'object'
+    fields = ['title', 'description', 'price','photo']
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context_data = super().get_context_data(**kwargs)
+        post_object = self.get_object()
+        user = self.request.user
+        
+        context_data[self.context_object_name] = post_object
+        context_data['user_like'] = Likes.objects.filter(post_key=post_object, user_key=user)
+        return context_data
+                 
 
 
 # def register_view(request):

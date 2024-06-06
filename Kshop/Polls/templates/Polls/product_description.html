@@ -52,60 +52,42 @@
       </div>
       <div class="row col-9">
         <div class="content">
-          <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="cards-wrapper">
-                  <div class="img_group">
-                  <img src="{%static 'img/proba.jpg'%}" class="d-block w-100" alt="...">
-                </div>
-                  <div class="img_group">
-                    <img src="{%static 'img/proba2.jpg'%}" class="d-block w-100" alt="...">
-                  </div>
-                    <div class="img_group">
-                      <img src="{%static 'img/proba3.jpg'%}" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="cards-wrapper">
-                  <div class="img_group">
-                    <img src="{%static 'img/proba4.jpg'%}" class="d-block w-100" alt="...">
-                  </div>
-                    <div class="img_group">
-                      <img src="{%static 'img/proba5.jpg'%}" class="d-block w-100" alt="...">
-                    </div>
-                      <div class="img_group">
-                        <img src="{%static 'img/proba6.jpg'%}" class="d-block w-100" alt="...">
-                      </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="cards-wrapper">
-                  <div class="img_group">
-                    <img src="{%static 'img/proba7.jpg'%}" class="d-block w-100" alt="...">
-                  </div>
-                      <div class="img_group">
-                      <img src="{%static 'img/proba8.jpg'%}" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="img_group">
-                        <img src="{%static 'img/proba9.jpg'%}" class="d-block w-100" alt="...">
-                      </div>
-                </div>
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Предыдущий</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Следующий</span>
-            </button>
-          </div>
             <div class="row">
-              <label class="fs-2 fw-bold text-center qq">Новинки</label>
+                <label class="fs-2 fw-bold text-center qq">Товар</label>
             </div>
+            <div class="card ps-5">
+                <div class="image_info row">
+                    <div class="img_card col-3">
+                        <img class="image_card" src="christmasevel.png">
+                    </div>
+                    <div class="info col-9 ps-5">
+                        <div class="title_product">
+                            <label>BOYNEXTDOOR - WHO! (Who ver.)</label>
+                        </div>
+                        <div class="price_product">
+                            <label>2 639 руб</label>
+                        </div>
+                        <div class="btn_buy_btn_favo row">
+                            <div class="add_button col-3">
+                                <button class="button_buy"><img class="basket_img" src="{% static 'img/basket.png' %}"> В корзину</button>
+                            </div>
+                            <div class="favorites col-9">
+                                <button class="favo_button"><img class="favo_img" src="{% static 'img/like.png' %}"></button>
+                            </div>
+                        </div>
+                        <div class="description_product">
+                            <label class="description_title">Описание</label> <br>
+                            <label>- CD диск</label> <br>
+                            <label>- CD диск</label> <br>
+                            <label>- CD диск</label> <br>
+                            <label>- CD диск</label> <br>
+                            <label>- CD диск</label> <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
             <div class="row row-cols-3">
             {%for product in products%}  
             <div class="col p-5">
