@@ -228,3 +228,8 @@ input.modal_input:focus{
   margin-top: 10px;
   font-size: 18px;
 }
+
+.anyClass {
+  height:150px;
+  overflow-y: scroll;
+}

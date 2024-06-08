@@ -13,7 +13,7 @@
     <!-- <div class="container-fluid"> -->
     <nav class="navbar navbar-light bg-light py-4" style="width: 100%;">
         <div class="container">
-            <a class="navbar-brand" href="main.html">
+            <a class="navbar-brand" href="{% url "main" %}">
                 <img class="img-fluid me-1" src="{%static 'img/logo3.png'%}" width="120px" height="100px">
             </a>
             <div class="container-fluid">
@@ -31,7 +31,7 @@
               <a class="navbar-brand" href="">
                   <img class="img-fluid me-4" src="{%static 'img/like.png'%}" width="40px" height="40px">
               </a>
-              <a class="navbar-brand" href="">
+              <a class="navbar-brand" href="#exampleModalToggle2" data-bs-toggle="modal">
                   <img class="img-fluid me-4" src="{%static 'img/basket.png'%}" width="50px" height="50px">
               </a>
           </div>   
@@ -55,17 +55,18 @@
             <div class="row">
                 <label class="fs-2 fw-bold text-center qq">Товар</label>
             </div>
-            <div class="card ps-5">
+            <form method="post" action="{% url "add_to_cart" object.id %}" class="card ps-5">
+                {% csrf_token %}
                 <div class="image_info row">
                     <div class="img_card col-3">
-                        <img class="image_card" src="christmasevel.png">
+                        <img class="image_card" src="{{object.photo.url}}">
                     </div>
                     <div class="info col-9 ps-5">
                         <div class="title_product">
-                            <label>BOYNEXTDOOR - WHO! (Who ver.)</label>
+                            <label>{{object.title}}</label>
                         </div>
                         <div class="price_product">
-                            <label>2 639 руб</label>
+                            <label>{{object.price}} руб</label>
                         </div>
                         <div class="btn_buy_btn_favo row">
                             <div class="add_button col-3">
@@ -77,15 +78,11 @@
                         </div>
                         <div class="description_product">
                             <label class="description_title">Описание</label> <br>
-                            <label>- CD диск</label> <br>
-                            <label>- CD диск</label> <br>
-                            <label>- CD диск</label> <br>
-                            <label>- CD диск</label> <br>
-                            <label>- CD диск</label> <br>
+                            <label class="text-wrap">{{object.description}}</label> <br>
                         </div>
                     </div>
                 </div>
-            </div>
+              </form>
         </div>
       </div>
             <div class="row row-cols-3">
@@ -119,7 +116,7 @@
           <div class="modal_header">
             <label class="titte_window">Авторизация</label>
           </div>
-          <form class="modal-body" method="post">
+          <form class="modal-body" method="post" action="{% url "login" %}">
               {% csrf_token %}
             <div class="email_div d-flex justify-content-center">
               <input class="modal_input" type="text" placeholder="Имя пользователя" name="username" id="username">
@@ -128,7 +125,7 @@
               <input class="modal_input" type="password" placeholder="Пароль" name="password" id="password">
             </div>
             <div class="modal_login_div d-flex justify-content-center">
-              <button class="log_in_modal" type="submit" name="login">Войти</button>
+              <button class="log_in_modal" type="submit">Войти</button>
             </div>
           </form>
           <div class="modal_footer d-flex justify-content-center">
@@ -163,7 +160,7 @@
           <div class="modal_header">
             <label class="titte_window">Регистрация</label>
           </div>
-          <form class="modal-body" method="post" action=".">
+          <form class="modal-body" method="post" action="{% url "register" %}">
               {% csrf_token %}
             <div class="email_div d-flex justify-content-center">
               <input class="modal_input" type="text" placeholder="Имя пользователя" name="username" id="username">
@@ -178,7 +175,7 @@
               <input class="modal_input" type="password" placeholder="Повторите пароль" name="password2" id="password2">
             </div>
             <div class="modal_login_div d-flex justify-content-center">
-              <button class="reg_in_modal" type="submit" name="register">Зарегистрироваться</button>
+              <button class="reg_in_modal" type="submit">Зарегистрироваться</button>
             </div>
           </form>
           <div class="modal_footer d-flex justify-content-center">
