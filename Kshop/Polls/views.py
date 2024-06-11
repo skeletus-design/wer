@@ -11,53 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # from .models import Article
-
-def main(request):
-    products = Product.objects.all()
-    if request.method == 'GET':
-        if request.user.is_authenticated:
-            # articles = Article.objects.order_by('-created_at')[:10]
-            return render(request, "Polls/main.html", {'products': products})       
-        else:
-            return render(request, "Polls/main.html", {'products': products})
-    if request.method == 'POST':
-        if 'login' in request.POST:
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                # Получаем данные из формы
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                # Пытаемся аутентифицировать пользователя
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    # Если пользователь существует и введены правильные данные, выполняем вход
-                    login(request, user)
-                    # Перенаправляем пользователя на нужную страницу
-                    next_url = request.GET.get('next', 'main')
-                    return redirect(next_url)
-                else:
-                    # Если пользователь не найден или данные неверны, выводим сообщение об ошибке
-                    error_message = "Invalid username or password."
-                    return render(request, 'login.html', {'form': form, 'error_message': error_message})
-        elif 'register' in request.POST:
-            print("elif")
-            form = forms.CustomRegistrationForm(request.POST)
-            print(form.data)
-            if form.is_valid():
-                print("valid2")
-                form.save()
-                # Сохраняем нового пользователя
-                print("valid2")
-                # Аутентифицируем нового пользователя и выполняем вход
-                username = request.POST.get('username')
-                password = request.POST.get('password1')
-                user = authenticate(request, username=username, password=password)
-                print("valid")
-                if user is not None:
-                    login(request, user)
-                    # Перенаправляем пользователя на нужную страницу
-                    return redirect('main')  # Замените 'home' на имя вашего представления или URL
-            print(form.error_messages) 
                
 def product_description(request):
     return render(request, "Polls/product_description.html")
@@ -70,24 +23,24 @@ class ProductListView(ListView):
     
 class ProductListViewNew(ListView):
     model = Product
-    template_name = 'Polls/main.html'  
+    template_name = 'Polls/main.html'
     context_object_name = 'products'
     ordering = ['-date_posted']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Проверка аутентификации пользователя и получение элементов корзины
+        if self.request.user.is_authenticated:
+            cart, created = Cart.objects.get_or_create(user=self.request.user)
+            context['cart_items'] = CartItem.objects.filter(cart=cart)  # здесь фильтруем по объекту cart
+        return context
 
 class ProductDetailView(DetailView):
     model = Product
     template_name="Polls/product_description.html"
     context_object_name = 'object'
     fields = ['title', 'description', 'price','photo']
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        product_id = self.object.id
-        context['reviews'] = CartItem.objects.filter(product_id=product_id)
-        if self.request.user.is_authenticated:
-            cart, created = Cart.objects.get_or_create(user=self.request.user)
-            context['cart_items'] = CartItem.objects.filter(cart=cart)
-        return context
     
 class CartDetailView(LoginRequiredMixin, ListView):
     model = CartItem
@@ -112,13 +65,13 @@ def add_to_cart(request, pk):
     else:
         cart_item.quantity += 1
         cart_item.save()
-    return redirect('post_detail', pk=pk) 
+    return redirect('main') 
 
 def remove_from_cart(request, product_id):
     cart = get_object_or_404(Cart, user=request.user)
     product = get_object_or_404(Product, id=product_id)
     CartItem.objects.filter(cart=cart, product=product).delete()
-    return redirect('cart_detail')
+    return redirect('main')
 
 def clear_cart(request):
     cart = get_object_or_404(Cart, user=request.user)

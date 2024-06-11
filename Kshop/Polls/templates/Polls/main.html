@@ -40,7 +40,7 @@
       <div class="container col-3 marginleft">
         <div class="list-group col">
             <a class="dropdown-item" href="stocks.html">Акции</a>
-            <a class="dropdown-item" href="{% url "new" %}">Новинки</a>
+            <a class="dropdown-item" href=".">Новинки</a>
             <a class="list-group-item dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="#">Альбомы</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="seventeen.html">Seventeen</a></li>
@@ -107,7 +107,7 @@
               <label class="fs-2 fw-bold text-center qq">Новинки</label>
             </div>
             <div class="row row-cols-3">
-            {%for product in products%}  
+            {% for product in products %}  
             <div class="col p-5">
               <div class="row p-2 border bg-light">
                 <div class="d-flex justify-content-center align-items-center">
@@ -165,14 +165,14 @@
           <div class="modal_header">
             <label class="titte_window">Корзина</label>
           </div>
-          {% for c in cart_items %}
-            <div class="modal-body" method="post">
-                {% csrf_token %}
+          {% for item in cart_items %}
+            <div class="modal-body">
               <div>
-                <div>{{c}}</div>
-                <div class="modal_login_div d-flex justify-content-center">
+                <div>{{ item.product.title }}</div>
+                <form method="post" action="{% url "remove_from_cart" item.product.id %}" class="modal_login_div d-flex justify-content-center">
+                  {% csrf_token %}
                   <button class="log_in_modal" type="submit">Войти</button>
-                </div>
+                </form>
               </div>  
             </div>
           {% endfor %}
